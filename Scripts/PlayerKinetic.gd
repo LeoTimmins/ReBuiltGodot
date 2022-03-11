@@ -4,7 +4,6 @@ var speed = 3
 # The downward acceleration when in the air, in meters per second squared.
 var fall_acceleration = 9.8
 
-
 export (NodePath) var camera_path
 onready var camera = get_node(camera_path)
 
@@ -37,18 +36,14 @@ func _ready():
 func _input(event):
 	if event is InputEventMouseMotion:
 		var mouse_speed = event.get_relative();
-		mouse_speed.normalized();
-		camera_pivot.rotation.y -= mouse_speed.x / 200;
-		camera_pivot.rotation.y = normalize_angle(camera_pivot.rotation.y);
-		camera_pivot.rotation.x += mouse_speed.y / 200;
-		camera_pivot.rotation.x = max(min(camera_pivot.rotation.x, 0.5), -0.5);
-	if event is InputEventKey:
+		camera_pivot.rotation.y = normalize_angle(camera_pivot.rotation.y - mouse_speed.x / 200);
+		camera_pivot.rotation.x = max(min(camera_pivot.rotation.x + mouse_speed.y / 200, 0.5), -0.5);
+	elif event is InputEventKey:
 		if Input.is_action_just_pressed("Debug_GiveMouse"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 
 var interpo_time = 0.0;
 var rotating = false;
-
 var wheel_wobble_right = true;
 
 func _physics_process(delta):	
@@ -61,13 +56,14 @@ func _physics_process(delta):
 	var forward = -camera.get_global_transform().basis.z;
 	var right = forward.cross(Vector3.UP);
 	
+	# move character
 	var move_direction = Vector3.ZERO
-	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up");
-	input_vector.normalized();
+	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up").normalized();
 	move_direction = input_vector.x * right + input_vector.y * forward;
 	move_direction.y = 0;
-	wheel.rotation.x += input_vector.y;
-	wheel.rotation.x = normalize_angle(wheel.rotation.x);
+	
+	# rotate wheel
+	wheel.rotation.x = normalize_angle(wheel.rotation.x + input_vector.y);
 	if wheel_wobble_right:
 		wheel.rotation.z += input_vector.y / 40;
 		if wheel.rotation.z >= PI/40:
@@ -80,8 +76,7 @@ func _physics_process(delta):
 	# Detect Inputs and Vector math
 	if Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
 		rotating = true;
-		
-	if Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left") ||  Input.is_action_pressed("ui_up") ||  Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left") ||  Input.is_action_pressed("ui_up") ||  Input.is_action_pressed("ui_down"):
 		if rotating == false:
 			mesh.rotation.y = camera_pivot.rotation.y;
 			collision.rotation.y = camera_pivot.rotation.y;
