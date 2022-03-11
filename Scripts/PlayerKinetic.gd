@@ -137,6 +137,7 @@ func _physics_process(delta):
 
 	# Jumping
 	if Input.is_action_just_pressed("SpaceBar") && is_on_floor() && JumpCooldown.is_stopped():
+		$AnimationPlayer.play("Jump");
 		JumpCooldown.start();
 		AudioPlayer.play();
 		move_direction.y = 7;

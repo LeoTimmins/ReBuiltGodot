@@ -1,14 +1,18 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/PlayerKinetic.gd" type="Script" id=1]
-[ext_resource path="res://Chars/MainCharModel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Chars/LegSupportUpper.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/2D_Art/Crosshair1.png" type="Texture" id=3]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Thin.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Chars/MainCharModelWheel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/Sound/Jump1.wav" type="AudioStream" id=7]
+[ext_resource path="res://Chars/Base.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/CameraControl.gd" type="Script" id=9]
 [ext_resource path="res://Misc/ArmSparks.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Chars/LegSupportBase.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Chars/UpperBody.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Chars/LegPivot.tscn" type="PackedScene" id=13]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1, 1, 0.675454 )
@@ -20,6 +24,170 @@ font_data = ExtResource( 4 )
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 5 )
 
+[sub_resource type="Animation" id=4]
+resource_name = "Jump"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerMesh/UpperBody:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.38048, 0 ), Vector3( 0, 0.64432, 0 ), Vector3( 0, 1.38048, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerMesh/LegSupportUpper:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 31.9539, 0, -180 ), Vector3( 53.0038, -1.29742e-12, -180 ), Vector3( 31.9539, 0, -180 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerMesh/LegSupportUpper:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 5.62982, -0.800986 ), Vector3( 0, 4.50569, -0.850726 ), Vector3( 0, 5.62982, -0.800986 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PlayerMesh/LegPivot:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 4.43691, -1.43858 ), Vector3( 0, 3.89972, -1.64749 ), Vector3( 0, 4.43691, -1.43858 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PlayerMesh/LegSupportBase:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 3.22271, -0.759088 ), Vector3( 0, 2.96406, -0.759088 ), Vector3( 0, 3.22271, -0.759088 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("PlayerMesh/LegSupportBase:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30.5879, 0, 0 ), Vector3( -48, 0, 0 ), Vector3( -30.5879, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerMesh/UpperBody:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.38048, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerMesh/LegSupportUpper:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 31.9539, 0, -180 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("PlayerMesh/LegSupportUpper:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 5.62982, -0.800986 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("PlayerMesh/LegPivot:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -90 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("PlayerMesh/LegPivot:translation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 4.43691, -1.43858 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("PlayerMesh/LegSupportBase:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 3.22271, -0.759088 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("PlayerMesh/LegSupportBase:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -30.5879, 0, 0 ) ]
+}
+
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
 raycaster_path = NodePath("CameraPivot/Camera/RayCast")
@@ -28,42 +196,10 @@ ShootTimer_path = NodePath("ShootTimer")
 AmmoLabel_path = NodePath("HUD/AmmoCounter/AmmoTxT")
 camera_path = NodePath("CameraPivot/Camera")
 camera_pivot_path = NodePath("CameraPivot")
-mesh_path = NodePath("MainCharModel")
+mesh_path = NodePath("PlayerMesh")
 collision_path = NodePath("CollisionShape")
 AudioPlayer_path = NodePath("AudioStreamPlayer3D")
 JumpCooldown_path = NodePath("JumpCooldown")
-
-[node name="MainCharModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97906, 0 )
-
-[node name="ArmSparks" parent="MainCharModel" instance=ExtResource( 10 )]
-transform = Transform( 0.0840447, 0, 0, 0, 0.0835572, 0, 0, 0, 0.139914, 2.06652, 5.29482, 0.922986 )
-amount = 4
-lifetime = 1.86
-speed_scale = 6.87
-explosiveness = 1.0
-randomness = 0.68
-visibility_aabb = AABB( -4, -5.13848, -4, 8, 10.277, 8 )
-
-[node name="EyeLightRight" type="SpotLight" parent="MainCharModel"]
-transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.571771, 8.42304, 1.09752 )
-light_energy = 5.0
-spot_range = 10.0
-spot_angle = 20.0
-
-[node name="EyeLightLeft" type="SpotLight" parent="MainCharModel"]
-transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.630246, 8.40997, 1.09752 )
-light_energy = 5.0
-spot_range = 10.0
-spot_angle = 20.0
-
-[node name="SparkLight" type="OmniLight" parent="MainCharModel"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11355, 5.23446, 0.810022 )
-light_energy = 0.1
-light_specular = 1.0
-
-[node name="MainCharModelWheel" parent="MainCharModel" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 0.212363, -0.000188828 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 2.37601, 0, 0, 0, 4.24017, 0, 0, 0, 2.7968, 0, 4.40989, 0 )
@@ -151,3 +287,56 @@ one_shot = true
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Jump = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[node name="PlayerMesh" type="Spatial" parent="."]
+
+[node name="EyeLightRight" type="SpotLight" parent="PlayerMesh"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.571771, 9.4021, 1.09752 )
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 20.0
+
+[node name="EyeLightLeft" type="SpotLight" parent="PlayerMesh"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.630246, 9.38903, 1.09752 )
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 20.0
+
+[node name="SparkLight" type="OmniLight" parent="PlayerMesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11355, 6.21352, 0.810022 )
+light_energy = 0.1
+light_specular = 1.0
+
+[node name="Wheel" parent="PlayerMesh" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 1.19142, -0.000188828 )
+
+[node name="LegSupportBase" parent="PlayerMesh" instance=ExtResource( 11 )]
+transform = Transform( 0.330241, 0, 0, 0, 1.07764, 0.168046, 0, -0.637007, 0.284288, 0, 3.22271, -0.759088 )
+skeleton = NodePath("")
+
+[node name="LegPivot" parent="PlayerMesh" instance=ExtResource( 13 )]
+transform = Transform( 3.32946e-08, 0.403, 0, -0.441, 3.04257e-08, 0, 0, 0, 0.44, 0, 4.43691, -1.43858 )
+skeleton = NodePath("")
+
+[node name="LegSupportUpper" parent="PlayerMesh" instance=ExtResource( 2 )]
+transform = Transform( 0.330241, -1.89022e-07, 0, 4.23092e-08, 1.06215, 0.174776, 2.63904e-08, 0.662516, -0.280202, 0, 5.62982, -0.800986 )
+skeleton = NodePath("")
+
+[node name="UpperBody" parent="PlayerMesh" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38048, 0 )
+
+[node name="ArmSparks" parent="PlayerMesh/UpperBody" instance=ExtResource( 10 )]
+transform = Transform( 0.0840447, 0, 0, 0, 0.102523, 0, 0, 0, 0.139914, 2.06652, 3.9871, 0.922986 )
+amount = 4
+lifetime = 1.86
+speed_scale = 6.87
+explosiveness = 1.0
+randomness = 0.68
+visibility_aabb = AABB( -4, -5.13848, -4, 8, 10.277, 8 )
+
+[node name="Base" parent="PlayerMesh" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97906, 0 )
