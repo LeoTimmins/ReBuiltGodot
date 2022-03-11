@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/charModels/MainCharModel.glb" type="PackedScene" id=2]
 [ext_resource path="res://assets/2D_Art/Crosshair1.png" type="Texture" id=3]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Thin.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Regular.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -85,5 +85,5 @@ margin_bottom = 137.0
 margin_right = 234.0
 margin_bottom = 162.0
 custom_fonts/normal_font = SubResource( 3 )
-text = "Place Holder Text for event vvvvv"
+text = "Place Holder Text for event vvvvvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 scroll_active = false
