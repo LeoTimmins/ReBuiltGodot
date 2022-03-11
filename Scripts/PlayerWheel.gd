@@ -1,5 +1,9 @@
 extends Spatial
 
+var wobble_speed = 1;
+var spin_speed = 1;
+var wobble_angle = PI/40;
+
 func normalize_angle(angle: float):
 	if angle > 2*PI:
 		return 0;
@@ -8,17 +12,17 @@ func normalize_angle(angle: float):
 	else:
 		return angle;
 
-var wheel_wobble_right = true;
+var wobble_right = true;
 
 func _process(delta):
 	# rotate wheel
-	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up").normalized();
-	rotation.x = normalize_angle(rotation.x + input_vector.y * delta);
-	if wheel_wobble_right:
-		rotation.z += input_vector.y / 40;
-		if rotation.z >= PI/40:
-			wheel_wobble_right = false;
-	else:
-		rotation.z -= input_vector.y / 40;
-		if rotation.z <= -PI/40:
-			wheel_wobble_right = true;
+	if Input.is_action_pressed("ui_up") || Input.is_action_pressed("ui_down"):
+		rotation.x = normalize_angle(rotation.x + spin_speed * delta);
+		if wobble_right:
+			rotation.z += wobble_speed * delta;
+			if rotation.z >= wobble_angle:
+				wobble_right = false;
+		else:
+			rotation.z -= wobble_speed * delta;
+			if rotation.z <= -wobble_angle:
+				wobble_right = true;
