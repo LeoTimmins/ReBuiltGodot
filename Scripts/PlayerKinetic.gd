@@ -69,12 +69,12 @@ func _physics_process(delta):
 	wheel.rotation.x += input_vector.y;
 	wheel.rotation.x = normalize_angle(wheel.rotation.x);
 	if wheel_wobble_right:
-		wheel.rotation.z += input_vector.y / 20000;
-		if wheel.rotation.z >= PI/4:
+		wheel.rotation.z += input_vector.y / 40;
+		if wheel.rotation.z >= PI/40:
 			wheel_wobble_right = false;
 	else:
-		wheel.rotation.z -= input_vector.y / 20000;
-		if wheel.rotation.z <= -PI/4:
+		wheel.rotation.z -= input_vector.y / 40;
+		if wheel.rotation.z <= -PI/40:
 			wheel_wobble_right = true;
 	
 	# Detect Inputs and Vector math
