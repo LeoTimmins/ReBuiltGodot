@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/PlayerKinetic.gd" type="Script" id=1]
-[ext_resource path="res://assets/charModels/MainCharModel.glb" type="PackedScene" id=2]
+[ext_resource path="res://assets/charModels/MainCharModelWheel.glb" type="PackedScene" id=2]
 [ext_resource path="res://assets/2D_Art/Crosshair1.png" type="Texture" id=3]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/charModels/WheelMesh/MainCharModelWheel.glb" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -21,18 +22,22 @@ camera_path = NodePath("CameraPivot/Camera")
 camera_pivot_path = NodePath("CameraPivot")
 mesh_path = NodePath("MainCharModel")
 collision_path = NodePath("CollisionShape")
+wheel_path = NodePath("MainCharModel/MainCharModelWheel")
+
+[node name="MainCharModel" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 1.26181, -0.000188828 )
+
+[node name="MainCharModelWheel" parent="MainCharModel" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00269318, -0.0237932, -0.0437826 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 4.37033, 0, 0, 0, 1.95263, 0, 4.53662, 0 )
+transform = Transform( 1, 0, 0, 0, 4.37, 0, 0, 0, 1.953, 0, 4.53662, 0 )
 shape = SubResource( 1 )
 
 [node name="CameraPivot" type="Spatial" parent="."]
 
 [node name="Camera" type="Camera" parent="CameraPivot"]
 transform = Transform( -1, 5.32907e-15, 8.74228e-08, 2.60192e-08, 0.954683, 0.297625, -8.3461e-08, 0.297625, -0.954683, 3.05388, 10.506, -10.8318 )
-
-[node name="MainCharModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.152476, 1.16056, -0.00845969 )
 
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0

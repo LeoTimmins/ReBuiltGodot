@@ -17,6 +17,9 @@ onready var mesh = get_node(mesh_path)
 export (NodePath) var collision_path
 onready var collision = get_node(collision_path)
 
+export (NodePath) var wheel_path
+onready var wheel = get_node(wheel_path)
+
 var velocity = Vector3.ZERO
 
 func _ready():
@@ -44,6 +47,7 @@ func _physics_process(delta):
 	#print("FPS " + String(Engine.get_frames_per_second()))
 	#end of debugging
 
+	print(wheel.rotation);
 
 	var forward = camera.get_global_transform().basis.z;
 	var direction = Vector3.ZERO
@@ -70,6 +74,7 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("ui_up"):
 		direction -= forward;
+		wheel.rotation.x +=5
 		if rotating == false:
 			mesh.rotation.y = camera_pivot.rotation.y;
 		
