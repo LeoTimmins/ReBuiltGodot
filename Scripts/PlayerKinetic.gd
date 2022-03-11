@@ -96,14 +96,16 @@ func _physics_process(delta):
 		if WeaponType == "NailGun":
 			ShootTimer.start();
 			LoadedAmmo -= 1;
-			AudioPlayer.stream = load("res://assets/Sound/NailGun.wav");
 			AudioPlayer1.play();
 		
 		ResetAmmoText()
 		
 		var collider = raycaster.get_collider();
 		if collider != null:
-			print(collider);
+			print(collider.name);
+			print(collider.get_class());
+			if "EnemyTemplate" in str(collider.name):
+				collider.EnemyHealth -= 50
 		print(raycaster.is_colliding());
 
 	# Directions relative to camera
