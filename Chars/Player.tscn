@@ -43,12 +43,30 @@ script = ExtResource( 8 )
 
 [node name="ArmSparks" parent="MainCharModel" instance=ExtResource( 11 )]
 transform = Transform( 0.0840447, 0, 0, 0, 0.0835572, 0, 0, 0, 0.139914, 2.05849, 4.1149, 0.926283 )
+
 amount = 4
 lifetime = 1.86
 speed_scale = 6.87
 explosiveness = 1.0
 randomness = 0.68
 visibility_aabb = AABB( -4, -5.13848, -4, 8, 10.277, 8 )
+
+[node name="EyeLightRight" type="SpotLight" parent="MainCharModel"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.601358, 7.16123, 1.09771 )
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 20.0
+
+[node name="EyeLightLeft" type="SpotLight" parent="MainCharModel"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.600659, 7.14816, 1.09771 )
+light_energy = 5.0
+spot_range = 10.0
+spot_angle = 20.0
+
+[node name="SparkLight" type="OmniLight" parent="MainCharModel"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14314, 3.97265, 0.810211 )
+light_energy = 0.1
+light_specular = 1.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 2.40914, 0, 0, 0, 4.37, 0, 0, 0, 1.87549, 0, 4.53662, 0 )
