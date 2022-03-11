@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/charModels/MainCharModelWheel.glb" type="PackedScene" id=2]
 [ext_resource path="res://assets/2D_Art/Crosshair1.png" type="Texture" id=3]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Thin.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/charModels/WheelMesh/MainCharModelWheel.glb" type="PackedScene" id=6]
 [ext_resource path="res://assets/Sound/Jump1.mp3" type="AudioStream" id=7]
 
@@ -19,6 +19,7 @@ font_data = ExtResource( 5 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
+raycaster_path = NodePath("CameraPivot/Camera/RayCast")
 camera_path = NodePath("CameraPivot/Camera")
 camera_pivot_path = NodePath("CameraPivot")
 mesh_path = NodePath("MainCharModel")
@@ -41,6 +42,10 @@ shape = SubResource( 1 )
 
 [node name="Camera" type="Camera" parent="CameraPivot"]
 transform = Transform( -1, 5.32907e-15, 8.74228e-08, 2.60192e-08, 0.954683, 0.297625, -8.3461e-08, 0.297625, -0.954683, 3.05388, 10.506, -10.8318 )
+
+[node name="RayCast" type="RayCast" parent="CameraPivot/Camera"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
 
 [node name="HUD" type="Control" parent="."]
 anchor_right = 1.0
