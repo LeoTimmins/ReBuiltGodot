@@ -4,6 +4,9 @@ var speed = 3
 # The downward acceleration when in the air, in meters per second squared.
 var fall_acceleration = 9.8
 
+export (NodePath) var raycaster_path
+onready var raycaster = get_node(raycaster_path)
+
 export (NodePath) var camera_path
 onready var camera = get_node(camera_path)
 
@@ -44,6 +47,7 @@ func _input(event):
 		var mouse_speed = event.get_relative();
 		camera_pivot.rotation.y = normalize_angle(camera_pivot.rotation.y - mouse_speed.x / 200);
 		camera_pivot.rotation.x = max(min(camera_pivot.rotation.x + mouse_speed.y / 200, 0.5), -0.5);
+		
 	elif event is InputEventKey:
 		if Input.is_action_just_pressed("Debug_GiveMouse"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
@@ -55,10 +59,21 @@ var wheel_wobble_right = true;
 func _physics_process(delta):	
 	# Debugging
 	#print("FPS " + String(Engine.get_frames_per_second()))
-	print(JumpCooldown.is_stopped())
+	#print(JumpCooldown.is_stopped())
 	# End of debugging
 	
-
+	
+	#raycast start
+	if Input.is_action_just_pressed("R-Mouse"):
+		raycaster.global_transform.origin = camera.global_transform.origin;
+		raycaster.cast_to = -camera.get_global_transform().basis.z * 10;
+		
+		var collider = raycaster.get_collider();
+		if collider != null:
+			print(collider);
+		print(raycaster.is_colliding());
+		#raycaster.queue_free();
+		
 	#stop jump audio
 	if JumpCooldown.is_stopped():
 		AudioPlayer.stop()
@@ -107,7 +122,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("SpaceBar") && is_on_floor() && JumpCooldown.is_stopped():
 		JumpCooldown.start()
 		AudioPlayer.play()
-		move_direction.y = 8;
+		move_direction.y = 7;
 		
 	#Apply movement and velocity calculations
 	velocity.x = move_direction.x * speed
