@@ -14,9 +14,10 @@ particles_anim_loop = false
 albedo_texture = ExtResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=2]
-lifetime_randomness = 0.29
+lifetime_randomness = 0.2
+spread = 100.0
 gravity = Vector3( 0, -4, 0 )
-initial_velocity = 3.88
+initial_velocity = 4.0
 initial_velocity_random = 1.0
 angle = 360.0
 angle_random = 1.0
