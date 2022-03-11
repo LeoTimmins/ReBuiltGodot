@@ -36,7 +36,7 @@ mode = 1
 gravity_scale = 0.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Floor"]
-transform = Transform( 1, 0, 0, 0, 0.3, 0, 0, 0, 1, 0, -0.54998, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.994051, 0.0465324, -1.34289, 0.0956394 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 4 )
 
@@ -45,7 +45,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0537758, -0.795054, 0.093574
 shape = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.173897, 0, 0, 0, 0.173897, 0, 0, 0, 0.173897, -2.79836, -0.0361375, -0.257698 )
+transform = Transform( 0.173897, 0, 0, 0, 0.173897, 0, 0, 0, 0.173897, -2.798, 0, -0.258 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )

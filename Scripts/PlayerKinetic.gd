@@ -10,7 +10,6 @@ var TotalAmmo = 10;
 var LoadedAmmo = 5;
 var MaxAmmoInMag = 15;
 
-
 export (NodePath) var raycaster_path;
 onready var raycaster = get_node(raycaster_path);
 
