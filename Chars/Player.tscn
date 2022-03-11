@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/PlayerKinetic.gd" type="Script" id=1]
 [ext_resource path="res://assets/charModels/MainCharModelWheel.glb" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Thin.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/charModels/WheelMesh/MainCharModelWheel.glb" type="PackedScene" id=6]
 [ext_resource path="res://assets/Sound/Jump1.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Scripts/PlayerWheel.gd" type="Script" id=8]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -33,6 +34,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 1.26181, -0.000188
 
 [node name="MainCharModelWheel" parent="MainCharModel" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00269318, -0.0237932, -0.0437826 )
+script = ExtResource( 8 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 2.40914, 0, 0, 0, 4.37, 0, 0, 0, 1.87549, 0, 4.53662, 0 )
@@ -44,6 +46,7 @@ shape = SubResource( 1 )
 transform = Transform( -1, 5.32907e-15, 8.74228e-08, 2.60192e-08, 0.954683, 0.297625, -8.3461e-08, 0.297625, -0.954683, 3.05388, 10.506, -10.8318 )
 
 [node name="RayCast" type="RayCast" parent="CameraPivot/Camera"]
+visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 
