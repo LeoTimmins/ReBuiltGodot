@@ -54,13 +54,6 @@ func ResetAmmoText():
 	else:
 		AmmoLabel.text = str(LoadedAmmo) + "/" + str(TotalAmmo);
 
-func normalize_angle(angle: float):
-	if angle > 2*PI:
-		return 0;
-	elif angle < 0:
-		return 2*PI;
-	else:
-		return angle;
 	
 func _ready():
 	#Hide Mouse
@@ -70,12 +63,7 @@ func _ready():
 	ResetAmmoText()
 
 func _input(event):
-	if event is InputEventMouseMotion:
-		var mouse_speed = event.get_relative();
-		camera_pivot.rotation.y = normalize_angle(camera_pivot.rotation.y - mouse_speed.x / 200);
-		camera_pivot.rotation.x = max(min(camera_pivot.rotation.x + mouse_speed.y / 200, 0.5), -0.5);
-		
-	elif event is InputEventKey:
+	if event is InputEventKey:
 		if Input.is_action_just_pressed("Esc"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 
@@ -88,9 +76,7 @@ func _physics_process(delta):
 	#print(JumpCooldown.is_stopped())
 	# End of debugging
 	
-	
 	#To Do: teleport to middle of cell if falling to far down
-	
 	
 	#reload
 	if Input.is_action_just_pressed("R") and LoadedAmmo != MaxAmmoInMag and TotalAmmo != 0:
