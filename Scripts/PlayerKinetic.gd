@@ -89,9 +89,6 @@ func _physics_process(delta):
 		
 		ResetAmmoText()
 		
-		raycaster.global_transform.origin = camera.global_transform.origin;
-		raycaster.cast_to = -camera.get_global_transform().basis.z * 10;
-		
 		var collider = raycaster.get_collider();
 		if collider != null:
 			print(collider);

@@ -46,7 +46,6 @@ shape = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 0.173897, 0, 0, 0, 0.173897, 0, 0, 0, 0.173897, -2.79836, -0.0361375, -0.257698 )
-raycaster_path = NodePath("../RayCast")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
@@ -68,6 +67,3 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.46181
 
 [node name="Pipe_Curved" parent="Pipes" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.434624, 0.953257, 3.95267 )
-
-[node name="RayCast" type="RayCast" parent="."]
-enabled = true
