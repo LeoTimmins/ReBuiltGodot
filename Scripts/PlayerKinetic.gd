@@ -29,9 +29,6 @@ onready var mesh = get_node(mesh_path);
 export (NodePath) var collision_path;
 onready var collision = get_node(collision_path);
 
-export (NodePath) var wheel_path;
-onready var wheel = get_node(wheel_path);
-
 export (NodePath) var AudioPlayer_path;
 onready var AudioPlayer = get_node(AudioPlayer_path);
 
