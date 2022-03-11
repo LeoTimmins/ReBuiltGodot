@@ -6,8 +6,8 @@ var fall_acceleration = 9.8;
 
 #placeholder set ammo script
 
-var TotalAmmo = 10;
-var LoadedAmmo = 5;
+var TotalAmmo = 1000;
+var LoadedAmmo = 15;
 var MaxAmmoInMag = 15;
 
 #set weapon type
@@ -18,6 +18,9 @@ var WeaponType = "NailGun"
 
 export (NodePath) var raycaster_path;
 onready var raycaster = get_node(raycaster_path);
+
+export (NodePath) var AudioPlayer1_path;
+onready var AudioPlayer1 = get_node(AudioPlayer1_path);
 
 export (NodePath) var ShootTimer_path;
 onready var ShootTimer = get_node(ShootTimer_path);
@@ -46,7 +49,10 @@ onready var JumpCooldown = get_node(JumpCooldown_path);
 var velocity = Vector3.ZERO;
 
 func ResetAmmoText():
-	AmmoLabel.text = str(LoadedAmmo) + "/" + str(TotalAmmo);
+	if TotalAmmo > 999:
+		AmmoLabel.text = str(LoadedAmmo) + "/999+";
+	else:
+		AmmoLabel.text = str(LoadedAmmo) + "/" + str(TotalAmmo);
 
 func normalize_angle(angle: float):
 	if angle > 2*PI:
@@ -104,8 +110,8 @@ func _physics_process(delta):
 		if WeaponType == "NailGun":
 			ShootTimer.start();
 			LoadedAmmo -= 1;
-			#AudioPlayer.stream("");
-			AudioPlayer.play();
+			AudioPlayer.stream = load("res://assets/Sound/NailGun.wav");
+			AudioPlayer1.play();
 		
 		ResetAmmoText()
 		
@@ -113,7 +119,6 @@ func _physics_process(delta):
 		if collider != null:
 			print(collider);
 		print(raycaster.is_colliding());
-		#raycaster.queue_free();
 
 	# Directions relative to camera
 	var forward = -camera.get_global_transform().basis.z;
@@ -149,6 +154,7 @@ func _physics_process(delta):
 		JumpCooldown.start();
 		AudioPlayer.play();
 		move_direction.y = 7;
+		
 		
 	#sprint
 	if Input.is_action_pressed("Shift"):
