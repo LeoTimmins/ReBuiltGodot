@@ -23,7 +23,6 @@ onready var wheel = get_node(wheel_path)
 var velocity = Vector3.ZERO
 
 func _ready():
-	
 	#Hide Mouse
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -41,44 +40,31 @@ func _input(event):
 var interpo_time = 0.0
 var rotating = false;
 
-func _physics_process(delta):
-	
-	#debugging
+func _physics_process(delta):	
+	# Debugging
 	#print("FPS " + String(Engine.get_frames_per_second()))
-	#end of debugging
-
 	print(wheel.rotation);
+	# End of debugging
 
-	var forward = camera.get_global_transform().basis.z;
-	var direction = Vector3.ZERO
+	# Directions relative to camera
+	var forward = -camera.get_global_transform().basis.z;
+	var right = forward.cross(Vector3.UP);
 	
-	#Detect Inputs and Vector math
-
+	var move_direction = Vector3.ZERO
+	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up");
+	input_vector.normalized();
+	move_direction = input_vector.x * right + input_vector.y * forward;
+	wheel.rotation.x += input_vector.y;
+	# Detect Inputs and Vector math
 	if Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
 		rotating = true;
 		
-	if Input.is_action_pressed("ui_right"):
-		direction -= forward.cross(Vector3.UP);
+
+	if Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left") ||  Input.is_action_pressed("ui_up") ||  Input.is_action_pressed("ui_down"):
 		if rotating == false:
 			mesh.rotation.y = camera_pivot.rotation.y;
-		
-	if Input.is_action_pressed("ui_left"):
-		direction += forward.cross(Vector3.UP);
-		if rotating == false:
-			mesh.rotation.y = camera_pivot.rotation.y;
-		
-	if Input.is_action_pressed("ui_down"):
-		direction += forward;
-		if rotating == false:
-			mesh.rotation.y = camera_pivot.rotation.y;
-		
-	if Input.is_action_pressed("ui_up"):
-		direction -= forward;
-		wheel.rotation.x +=5
-		if rotating == false:
-			mesh.rotation.y = camera_pivot.rotation.y;
-		
-		#collision.rotation.y = camera_pivot.rotation.y;
+			collision.rotation.y = camera_pivot.rotation.y;
+	
 	if rotating == true:
 		if mesh.rotation.y == camera_pivot.rotation.y:
 			rotating = false;
@@ -88,20 +74,15 @@ func _physics_process(delta):
 			interpo_time += delta * 0.8;
 			if interpo_time > 1.0:
 				interpo_time = 1.0;
-		
-	if direction != Vector3.ZERO:
-		direction.y = 0;
-		direction = direction.normalized()
 
-	#jumping
+	# Jumping
 	if Input.is_action_just_pressed("SpaceBar") && is_on_floor():
-		direction.y = 6;
+		move_direction.y = 10;
 		
 		
-	#Apply movemet and velocity calculations
-	
-	velocity.x = direction.x * speed
-	velocity.z = direction.z * speed
-	velocity.y += direction.y - fall_acceleration * delta
+	#Apply movement and velocity calculations
+	velocity.x = move_direction.x * speed
+	velocity.z = move_direction.z * speed
+	velocity.y += move_direction.y - fall_acceleration * delta
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
