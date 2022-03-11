@@ -20,6 +20,7 @@ font_data = ExtResource( 5 )
 
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
+AmmoLabel_path = NodePath("HUD/AmmoCounter/AmmoTxT")
 raycaster_path = NodePath("CameraPivot/Camera/RayCast")
 camera_path = NodePath("CameraPivot/Camera")
 camera_pivot_path = NodePath("CameraPivot")

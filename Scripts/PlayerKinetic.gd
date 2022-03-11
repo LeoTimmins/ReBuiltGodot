@@ -1,46 +1,62 @@
-extends KinematicBody
+extends KinematicBody;
 
-var speed = 3
+var speed = 3;
 # The downward acceleration when in the air, in meters per second squared.
-var fall_acceleration = 9.8
+var fall_acceleration = 9.8;
 
-export (NodePath) var raycaster_path
-onready var raycaster = get_node(raycaster_path)
+#placeholder set ammo script
 
-export (NodePath) var camera_path
-onready var camera = get_node(camera_path)
+var TotalAmmo = 10;
+var LoadedAmmo = 5;
+var MaxAmmoInMag = 15;
 
-export (NodePath) var camera_pivot_path
-onready var camera_pivot = get_node(camera_pivot_path)
 
-export (NodePath) var mesh_path
-onready var mesh = get_node(mesh_path)
+export (NodePath) var raycaster_path;
+onready var raycaster = get_node(raycaster_path);
 
-export (NodePath) var collision_path
-onready var collision = get_node(collision_path)
+export (NodePath) var AmmoLabel_path;
+onready var AmmoLabel = get_node(AmmoLabel_path);
 
-export (NodePath) var wheel_path
-onready var wheel = get_node(wheel_path)
+export (NodePath) var camera_path;
+onready var camera = get_node(camera_path);
 
-export (NodePath) var AudioPlayer_path
-onready var AudioPlayer = get_node(AudioPlayer_path)
+export (NodePath) var camera_pivot_path;
+onready var camera_pivot = get_node(camera_pivot_path);
 
-export (NodePath) var JumpCooldown_path
-onready var JumpCooldown = get_node(JumpCooldown_path)
+export (NodePath) var mesh_path;
+onready var mesh = get_node(mesh_path);
 
-var velocity = Vector3.ZERO
+export (NodePath) var collision_path;
+onready var collision = get_node(collision_path);
+
+export (NodePath) var wheel_path;
+onready var wheel = get_node(wheel_path);
+
+export (NodePath) var AudioPlayer_path;
+onready var AudioPlayer = get_node(AudioPlayer_path);
+
+export (NodePath) var JumpCooldown_path;
+onready var JumpCooldown = get_node(JumpCooldown_path);
+
+var velocity = Vector3.ZERO;
+
+func ResetAmmoText():
+	AmmoLabel.text = str(LoadedAmmo) + "/" + str(TotalAmmo);
 
 func normalize_angle(angle: float):
 	if angle > 2*PI:
 		return 0;
 	elif angle < 0:
-		return 2*PI
+		return 2*PI;
 	else:
 		return angle;
 	
 func _ready():
 	#Hide Mouse
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+	
+	#reset ammo label
+	ResetAmmoText()
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -61,9 +77,24 @@ func _physics_process(delta):
 	#print(JumpCooldown.is_stopped())
 	# End of debugging
 	
-	
+	if Input.is_action_just_pressed("Reload") and LoadedAmmo != MaxAmmoInMag and TotalAmmo != 0:
+		
+		if MaxAmmoInMag - LoadedAmmo > TotalAmmo:
+			LoadedAmmo += TotalAmmo;
+			TotalAmmo = 0; 
+		else:
+			TotalAmmo -= MaxAmmoInMag - LoadedAmmo;
+			LoadedAmmo = MaxAmmoInMag;
+		
+		
+		ResetAmmoText()
+		
 	#raycast start
-	if Input.is_action_just_pressed("R-Mouse"):
+	if LoadedAmmo != 0 && Input.is_action_just_pressed("L-Mouse"):
+		LoadedAmmo -= 1
+		
+		ResetAmmoText()
+		
 		var collider = raycaster.get_collider();
 		if collider != null:
 			print(collider);
@@ -72,14 +103,14 @@ func _physics_process(delta):
 		
 	#stop jump audio
 	if JumpCooldown.is_stopped():
-		AudioPlayer.stop()
+		AudioPlayer.stop();
 
 	# Directions relative to camera
 	var forward = -camera.get_global_transform().basis.z;
 	var right = forward.cross(Vector3.UP);
 	
 	# move character
-	var move_direction = Vector3.ZERO
+	var move_direction = Vector3.ZERO;
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up").normalized();
 	move_direction = input_vector.x * right + input_vector.y * forward;
 	move_direction.y = 0;
@@ -105,13 +136,13 @@ func _physics_process(delta):
 
 	# Jumping
 	if Input.is_action_just_pressed("SpaceBar") && is_on_floor() && JumpCooldown.is_stopped():
-		JumpCooldown.start()
-		AudioPlayer.play()
+		JumpCooldown.start();
+		AudioPlayer.play();
 		move_direction.y = 7;
 		
 	#Apply movement and velocity calculations
-	velocity.x = move_direction.x * speed
-	velocity.z = move_direction.z * speed
-	velocity.y += move_direction.y - fall_acceleration * delta
-	velocity = move_and_slide(velocity, Vector3.UP)
+	velocity.x = move_direction.x * speed;
+	velocity.z = move_direction.z * speed;
+	velocity.y += move_direction.y - fall_acceleration * delta;
+	velocity = move_and_slide(velocity, Vector3.UP);
 	
