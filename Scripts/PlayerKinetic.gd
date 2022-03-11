@@ -20,6 +20,12 @@ onready var collision = get_node(collision_path)
 export (NodePath) var wheel_path
 onready var wheel = get_node(wheel_path)
 
+export (NodePath) var AudioPlayer_path
+onready var AudioPlayer = get_node(AudioPlayer_path)
+
+export (NodePath) var JumpCooldown_path
+onready var JumpCooldown = get_node(JumpCooldown_path)
+
 var velocity = Vector3.ZERO
 
 func normalize_angle(angle: float):
@@ -54,8 +60,13 @@ var wheel_wobble_right = true;
 func _physics_process(delta):	
 	# Debugging
 	#print("FPS " + String(Engine.get_frames_per_second()))
-	print(wheel.rotation);
+	print(JumpCooldown.is_stopped())
 	# End of debugging
+	
+
+	#stop jump audio
+	if JumpCooldown.is_stopped():
+		AudioPlayer.stop()
 
 	# Directions relative to camera
 	var forward = -camera.get_global_transform().basis.z;
@@ -98,7 +109,9 @@ func _physics_process(delta):
 				interpo_time = 1.0;
 
 	# Jumping
-	if Input.is_action_just_pressed("SpaceBar") && is_on_floor():
+	if Input.is_action_just_pressed("SpaceBar") && is_on_floor() && JumpCooldown.is_stopped():
+		JumpCooldown.start()
+		AudioPlayer.play()
 		move_direction.y = 8;
 		
 	#Apply movement and velocity calculations

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/PlayerKinetic.gd" type="Script" id=1]
 [ext_resource path="res://assets/charModels/MainCharModelWheel.glb" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/charModels/WheelMesh/MainCharModelWheel.glb" type="PackedScene" id=6]
+[ext_resource path="res://assets/Sound/Jump1.mp3" type="AudioStream" id=7]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -23,6 +24,8 @@ camera_pivot_path = NodePath("CameraPivot")
 mesh_path = NodePath("MainCharModel")
 collision_path = NodePath("CollisionShape")
 wheel_path = NodePath("MainCharModel/MainCharModelWheel")
+AudioPlayer_path = NodePath("AudioStreamPlayer3D")
+JumpCooldown_path = NodePath("JumpCooldown")
 
 [node name="MainCharModel" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 1.26181, -0.000188828 )
@@ -92,3 +95,12 @@ margin_bottom = 162.0
 custom_fonts/normal_font = SubResource( 3 )
 text = "Place Holder Text for event vvvvvfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 scroll_active = false
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.97063, 0 )
+stream = ExtResource( 7 )
+unit_db = 80.0
+
+[node name="JumpCooldown" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
