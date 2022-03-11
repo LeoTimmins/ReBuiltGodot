@@ -6,8 +6,8 @@ var fall_acceleration = 9.8;
 
 #placeholder set ammo script
 
-var TotalAmmo = 500;
-var LoadedAmmo = 15;
+var TotalAmmo = 10;
+var LoadedAmmo = 5;
 var MaxAmmoInMag = 15;
 
 
@@ -78,9 +78,16 @@ func _physics_process(delta):
 	#print(JumpCooldown.is_stopped())
 	# End of debugging
 	
-	if Input.is_action_just_pressed("Reload") and LoadedAmmo != MaxAmmoInMag:
-		TotalAmmo -= MaxAmmoInMag - LoadedAmmo;
-		LoadedAmmo = MaxAmmoInMag;
+	if Input.is_action_just_pressed("Reload") and LoadedAmmo != MaxAmmoInMag and TotalAmmo != 0:
+		
+		if MaxAmmoInMag - LoadedAmmo > TotalAmmo:
+			LoadedAmmo += TotalAmmo;
+			TotalAmmo = 0; 
+		else:
+			TotalAmmo -= MaxAmmoInMag - LoadedAmmo;
+			LoadedAmmo = MaxAmmoInMag;
+		
+		
 		ResetAmmoText()
 		
 	#raycast start

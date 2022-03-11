@@ -45,6 +45,7 @@ shape = SubResource( 1 )
 transform = Transform( -1, 5.32907e-15, 8.74228e-08, 2.60192e-08, 0.954683, 0.297625, -8.3461e-08, 0.297625, -0.954683, 3.05388, 10.506, -10.8318 )
 
 [node name="RayCast" type="RayCast" parent="CameraPivot/Camera"]
+visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 
