@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/LD_Obj_Models/PipeStraight/PipesStraight.glb" type="PackedScene" id=1]
+
+[sub_resource type="CylinderShape" id=1]
+
+[node name="PipeStraight" type="StaticBody"]
+
+[node name="PipesStraight" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0289059, 0.0101547, 0.0181571 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -9.24359e-08, -2.11469, 0, 0.540678, -2.36338e-08, 0, 0, 0, 0.540678, 0.152465, -0.00218201, 0.0277429 )
+shape = SubResource( 1 )

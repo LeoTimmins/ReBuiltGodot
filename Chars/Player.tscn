@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/PlayerKinetic.gd" type="Script" id=1]
+[ext_resource path="res://assets/charModels/MainCharModel.glb" type="PackedScene" id=2]
+[ext_resource path="res://assets/2D_Art/Crosshair1.png" type="Texture" id=3]
+[ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 41
+font_data = ExtResource( 4 )
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 1 )
+camera_path = NodePath("CameraPivot/Camera")
+camera_pivot_path = NodePath("CameraPivot")
+mesh_path = NodePath("MainCharModel")
+collision_path = NodePath("CollisionShape")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 4.37033, 0, 0, 0, 1.95263, 0, 4.53662, 0 )
+shape = SubResource( 1 )
+
+[node name="CameraPivot" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="CameraPivot"]
+transform = Transform( -1, 5.32907e-15, 8.74228e-08, 2.60192e-08, 0.954683, 0.297625, -8.3461e-08, 0.297625, -0.954683, 3.05388, 10.506, -10.8318 )
+
+[node name="MainCharModel" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.152476, 1.16056, -0.00845969 )
+
+[node name="HUD" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CrossHair" type="Control" parent="HUD"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="center" type="Node2D" parent="HUD/CrossHair"]
+position = Vector2( 20, 20 )
+rotation = 0.00228689
+
+[node name="Sprite" type="Sprite" parent="HUD/CrossHair/center"]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+
+[node name="AmmoCounter" type="Control" parent="HUD"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -130.0
+margin_top = -58.0
+
+[node name="AmmoTxT" type="RichTextLabel" parent="HUD/AmmoCounter"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -153.0
+margin_top = -65.0
+custom_fonts/normal_font = SubResource( 2 )
+text = "45/675"
+scroll_active = false
+
+[node name="EventLog" type="Control" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -235.0
+margin_bottom = 137.0
+
+[node name="EventTxt" type="RichTextLabel" parent="HUD/EventLog"]
+margin_right = 234.0
+margin_bottom = 179.0

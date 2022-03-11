@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/LD_Obj_Models/PipesCorner/PipesCorner.glb" type="PackedScene" id=1]
+
+[sub_resource type="CylinderShape" id=1]
+
+[node name="Pipe_Curved" type="RigidBody"]
+mode = 1
+
+[node name="PipesCorner" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000220776, -0.0690818, -0.0500906 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.542799, 0, 0, 0, -2.37265e-08, -0.542799, 0, 0.966878, -4.22636e-08, -0.0012244, -0.0472118, -1.07488 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( -0.0031168, -0.966862, 4.22629e-08, 0, -2.37265e-08, -0.542799, 0.54279, -0.0055519, 2.42681e-10, 1.01165, -0.0472118, -0.0404093 )
+shape = SubResource( 1 )
