@@ -28,7 +28,6 @@ camera_path = NodePath("CameraPivot/Camera")
 camera_pivot_path = NodePath("CameraPivot")
 mesh_path = NodePath("MainCharModel")
 collision_path = NodePath("CollisionShape")
-wheel_path = NodePath("MainCharModel/MainCharModelWheel")
 AudioPlayer_path = NodePath("AudioStreamPlayer3D")
 JumpCooldown_path = NodePath("JumpCooldown")
 

@@ -58,7 +58,7 @@ func _ready():
 
 func _input(event):
 	if event is InputEventKey:
-		if Input.is_action_just_pressed("Debug_GiveMouse"):
+		if Input.is_action_just_pressed("Esc"):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 
 var interpo_time = 0.0;
@@ -73,7 +73,7 @@ func _physics_process(delta):
 	#To Do: teleport to middle of cell if falling to far down
 	
 	#reload
-	if Input.is_action_just_pressed("Reload") and LoadedAmmo != MaxAmmoInMag and TotalAmmo != 0:
+	if Input.is_action_just_pressed("R") and LoadedAmmo != MaxAmmoInMag and TotalAmmo != 0:
 		#checks if there isn't enough ammo to fill magazine
 		if MaxAmmoInMag - LoadedAmmo > TotalAmmo:
 			LoadedAmmo += TotalAmmo;
@@ -107,14 +107,14 @@ func _physics_process(delta):
 	
 	# move character
 	var move_direction = Vector3.ZERO;
-	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up").normalized();
+	var input_vector = Input.get_vector("A", "D", "S", "W").normalized();
 	move_direction = input_vector.x * right + input_vector.y * forward;
 	move_direction.y = 0;
 	
 	# Detect Inputs and Vector math
-	if Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_just_pressed("A") || Input.is_action_just_pressed("D") || Input.is_action_just_pressed("W") || Input.is_action_just_pressed("S"):
 		rotating = true;
-	elif Input.is_action_pressed("ui_right") ||  Input.is_action_pressed("ui_left") ||  Input.is_action_pressed("ui_up") ||  Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed("D") ||  Input.is_action_pressed("A") ||  Input.is_action_pressed("W") ||  Input.is_action_pressed("S"):
 		if rotating == false:
 			mesh.rotation.y = camera_pivot.rotation.y;
 			collision.rotation.y = camera_pivot.rotation.y;
@@ -135,6 +135,13 @@ func _physics_process(delta):
 		JumpCooldown.start();
 		AudioPlayer.play();
 		move_direction.y = 7;
+		
+	#sprint
+	if Input.is_action_pressed("Shift"):
+		speed = 6;
+	else:
+		speed = 3
+	
 		
 	#Apply movement and velocity calculations
 	velocity.x = move_direction.x * speed;

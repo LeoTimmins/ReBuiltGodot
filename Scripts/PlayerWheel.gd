@@ -16,7 +16,7 @@ var wobble_right = true;
 
 func _process(delta):
 	# rotate wheel
-	if Input.is_action_pressed("ui_up") || Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("W") || Input.is_action_pressed("S"):
 		rotation.x = normalize_angle(rotation.x + spin_speed * delta);
 		if wobble_right:
 			rotation.z += wobble_speed * delta;
