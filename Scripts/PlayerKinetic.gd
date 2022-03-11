@@ -37,9 +37,6 @@ onready var mesh = get_node(mesh_path);
 export (NodePath) var collision_path;
 onready var collision = get_node(collision_path);
 
-export (NodePath) var wheel_path;
-onready var wheel = get_node(wheel_path);
-
 export (NodePath) var AudioPlayer_path;
 onready var AudioPlayer = get_node(AudioPlayer_path);
 
@@ -78,7 +75,6 @@ func _input(event):
 
 var interpo_time = 0.0;
 var rotating = false;
-var wheel_wobble_right = true;
 
 func _physics_process(delta):	
 	# Debugging
@@ -128,17 +124,6 @@ func _physics_process(delta):
 	var input_vector = Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up").normalized();
 	move_direction = input_vector.x * right + input_vector.y * forward;
 	move_direction.y = 0;
-	
-	# rotate wheel
-	wheel.rotation.x = normalize_angle(wheel.rotation.x + input_vector.y);
-	if wheel_wobble_right:
-		wheel.rotation.z += input_vector.y / 40;
-		if wheel.rotation.z >= PI/40:
-			wheel_wobble_right = false;
-	else:
-		wheel.rotation.z -= input_vector.y / 40;
-		if wheel.rotation.z <= -PI/40:
-			wheel_wobble_right = true;
 	
 	# Detect Inputs and Vector math
 	if Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("ui_down"):
