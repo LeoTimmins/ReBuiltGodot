@@ -1,17 +1,17 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/PlayerKinetic.gd" type="Script" id=1]
-[ext_resource path="res://assets/charModels/MainCharModelWheel.glb" type="PackedScene" id=2]
+[ext_resource path="res://Chars/MainCharModel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/2D_Art/Crosshair1.png" type="Texture" id=3]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/Fonts/Roboto_Slab/static/RobotoSlab-Thin.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://assets/charModels/WheelMesh/MainCharModelWheel.glb" type="PackedScene" id=6]
+[ext_resource path="res://Chars/MainCharModelWheel.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/Sound/Jump1.wav" type="AudioStream" id=7]
-[ext_resource path="res://Scripts/PlayerWheel.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/CameraControl.gd" type="Script" id=9]
 [ext_resource path="res://Misc/ArmSparks.tscn" type="PackedScene" id=10]
 
 [sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 0.675454 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 41
@@ -34,14 +34,10 @@ AudioPlayer_path = NodePath("AudioStreamPlayer3D")
 JumpCooldown_path = NodePath("JumpCooldown")
 
 [node name="MainCharModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 1.26181, -0.000188828 )
-
-[node name="MainCharModelWheel" parent="MainCharModel" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00269318, -0.0237932, -0.0437826 )
-script = ExtResource( 8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.97906, 0 )
 
 [node name="ArmSparks" parent="MainCharModel" instance=ExtResource( 10 )]
-transform = Transform( 0.0840447, 0, 0, 0, 0.0835572, 0, 0, 0, 0.139914, 2.09611, 4.03301, 0.923175 )
+transform = Transform( 0.0840447, 0, 0, 0, 0.0835572, 0, 0, 0, 0.139914, 2.06652, 5.29482, 0.922986 )
 amount = 4
 lifetime = 1.86
 speed_scale = 6.87
@@ -50,24 +46,27 @@ randomness = 0.68
 visibility_aabb = AABB( -4, -5.13848, -4, 8, 10.277, 8 )
 
 [node name="EyeLightRight" type="SpotLight" parent="MainCharModel"]
-transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.601358, 7.16123, 1.09771 )
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.571771, 8.42304, 1.09752 )
 light_energy = 5.0
 spot_range = 10.0
 spot_angle = 20.0
 
 [node name="EyeLightLeft" type="SpotLight" parent="MainCharModel"]
-transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.600659, 7.14816, 1.09771 )
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.630246, 8.40997, 1.09752 )
 light_energy = 5.0
 spot_range = 10.0
 spot_angle = 20.0
 
 [node name="SparkLight" type="OmniLight" parent="MainCharModel"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.14314, 3.97265, 0.810211 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11355, 5.23446, 0.810022 )
 light_energy = 0.1
 light_specular = 1.0
 
+[node name="MainCharModelWheel" parent="MainCharModel" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295868, 0.212363, -0.000188828 )
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 2.40914, 0, 0, 0, 4.37, 0, 0, 0, 1.87549, 0, 4.53662, 0 )
+transform = Transform( 2.37601, 0, 0, 0, 4.24017, 0, 0, 0, 2.7968, 0, 4.40989, 0 )
 shape = SubResource( 1 )
 
 [node name="CameraPivot" type="Spatial" parent="."]
