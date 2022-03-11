@@ -10,8 +10,17 @@ var TotalAmmo = 10;
 var LoadedAmmo = 5;
 var MaxAmmoInMag = 15;
 
+#set weapon type
+var WeaponType = "NailGun"
+
+
+#Get Child-Node ID's
+
 export (NodePath) var raycaster_path;
 onready var raycaster = get_node(raycaster_path);
+
+export (NodePath) var ShootTimer_path;
+onready var ShootTimer = get_node(ShootTimer_path);
 
 export (NodePath) var AmmoLabel_path;
 onready var AmmoLabel = get_node(AmmoLabel_path);
@@ -73,21 +82,30 @@ func _physics_process(delta):
 	#print(JumpCooldown.is_stopped())
 	# End of debugging
 	
+	
+	#To Do: teleport to middle of cell if falling to far down
+	
+	
+	#reload
 	if Input.is_action_just_pressed("Reload") and LoadedAmmo != MaxAmmoInMag and TotalAmmo != 0:
-		
+		#checks if there isn't enough ammo to fill magazine
 		if MaxAmmoInMag - LoadedAmmo > TotalAmmo:
 			LoadedAmmo += TotalAmmo;
 			TotalAmmo = 0; 
-		else:
+		else: # standard fill magazine
 			TotalAmmo -= MaxAmmoInMag - LoadedAmmo;
 			LoadedAmmo = MaxAmmoInMag;
 		
 		
 		ResetAmmoText()
 		
-	#raycast start
-	if LoadedAmmo != 0 && Input.is_action_just_pressed("L-Mouse"):
-		LoadedAmmo -= 1
+	#raycast start (Shoot Weapon)
+	if LoadedAmmo != 0 && Input.is_action_pressed("L-Mouse") and ShootTimer.is_stopped():
+		if WeaponType == "NailGun":
+			ShootTimer.start();
+			LoadedAmmo -= 1;
+			#AudioPlayer.stream("");
+			AudioPlayer.play();
 		
 		ResetAmmoText()
 		
@@ -96,10 +114,6 @@ func _physics_process(delta):
 			print(collider);
 		print(raycaster.is_colliding());
 		#raycaster.queue_free();
-		
-	#stop jump audio
-	if JumpCooldown.is_stopped():
-		AudioPlayer.stop();
 
 	# Directions relative to camera
 	var forward = -camera.get_global_transform().basis.z;
