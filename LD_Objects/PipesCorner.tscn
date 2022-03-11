@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/LD_Obj_Models/PipesCorner/PipesCorner.glb" type="PackedScene" id=1]
+
+[node name="PipesCorner" instance=ExtResource( 1 )]
